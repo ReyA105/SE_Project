@@ -3,9 +3,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-import { Link } from 'react-router-dom';
-import CreateUser from './CreateUser.component';
-import {BrowserRouter as Router,Route} from "react-router-dom"
+
 
 
 export default class Login extends Component{
@@ -41,12 +39,10 @@ export default class Login extends Component{
              <RaisedButton label="Submit" primary={true} style={style} onClick={(event) => this.handleClick(event)}/>
          </div>
          </MuiThemeProvider>
-        <Router>
-        <nav>
-        <Link to = "/CreateUser">CreateUser</Link>
-        <Route path ="/CreateUser" exact component = {CreateUser}/>
-        </nav>
-        </Router>
+
+        <a href="/CreateUser">Don't have an Account? Click here!</a>
+        
+
       </div>
       
     );
