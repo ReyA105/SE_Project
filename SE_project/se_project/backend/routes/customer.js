@@ -29,12 +29,6 @@ router.route('/add').post((req, res) => {
       .catch(err => res.status(400).json('Error: ' + err));
   });
 
-  router.route('/:_id/loggedIn').get((req, res) => {
-    Customer.findById(req.params._id)
-      .then(customer => res.json(customer.loggedIn))
-      .catch(err => res.status(400).json('Error: ' + err));
-    
-  });
 
   router.route('/:_id/Update/loggedIn').post((req, res) => {
     Customer.findByIdAndUpdate({_id:req.params._id},{loggedIn: true})

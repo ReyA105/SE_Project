@@ -28,7 +28,7 @@ export default class App extends Component{
   }
 
   checkLoginStatus() {
-    let  query = "http://localhost:3000/Customer/"+this.state.user._id+"/loggedIn"
+    let  query = "http://localhost:3000/Customer/"+this.state.user._id
     axios
       .get(query)
       .then(response => {
@@ -38,7 +38,7 @@ export default class App extends Component{
         ) {
           this.setState({
             loggedInStatus: "LOGGED_IN",
-            user: response.data.user
+            user: response.data
           });
         } else if (
           !response.data.loggedIn &
