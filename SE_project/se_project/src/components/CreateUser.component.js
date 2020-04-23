@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+//import axios from "axios";
 
 export default class CreateUser extends Component{
     constructor(props)
@@ -8,12 +9,15 @@ export default class CreateUser extends Component{
             this.onChangeFirstName = this.onChangeFirstName.bind(this);
             this.onChangeLastName = this.onChangeLastName.bind(this);
             this.onSubmit = this.onSubmit.bind(this);
+
+
             this.state= {
               FirstName : ' ',
               LastName :' '
             }
         }
-        
+
+         
         onChangeFirstName(e){
             this.setState({FirstName: e.target.value})
         }

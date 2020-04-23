@@ -15,7 +15,8 @@ const customerSchema = new Schema({
         city :  {type: String, default: ' '},
         state:  {type: String, default: ' '},
         zipcode:  {type: String, default: ' '},
-    }
+    },
+    loggedIn : {type: Boolean, default:false}
 }
 );
 

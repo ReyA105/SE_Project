@@ -3,6 +3,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
+import axios from "axios";
 
 
 
@@ -13,8 +14,27 @@ export default class Login extends Component{
         username:'',
         password:''
         }
-       }
 
+        this.handleSuccessfulAuth = this.handleSuccessfulAuth.bind(this);
+        this.handleLogoutClick = this.handleLogoutClick.bind(this);
+
+       } 
+
+  handleSuccessfulAuth(data) {
+    this.props.handleLogin(data);
+    this.props.history.push("/dashboard");
+  }
+  
+  handleLogoutClick() {
+    axios
+      .delete("http://localhost:3001/logout", { withCredentials: true })
+      .then(response => {
+        this.props.handleLogout();
+      })
+      .catch(error => {
+        console.log("logout error", error);
+      });
+  }
     render() {
     return (
       <div>
