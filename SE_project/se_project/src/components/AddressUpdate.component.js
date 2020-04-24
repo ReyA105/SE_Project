@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import axios from "axios";
+
 
 export default class AddressUpdate extends Component{
     constructor(props)
@@ -38,17 +40,21 @@ export default class AddressUpdate extends Component{
     onSubmit(e){
         e.preventDefault();
 
-        const address ={
+        const update ={
+            address:{
                 streetName : this.state.streetName,
                 city : this.state.city,
                 state: this.state.state,
                 zipcode: this.state.zipcode
+            }
         }
-        console.log(address)
+        console.log()
+        let query = "http://localhost:5000/Customer/"+this.props.userID+"/address/update"
+        console.log(query)
+        axios.post(query,update).then(res => console.log(res));
 
-        //axios post
-
-       // window.location = '/'
+        
+        
 
     }
     render() {

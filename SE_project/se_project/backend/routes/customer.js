@@ -19,7 +19,7 @@ router.route('/add').post((req, res) => {
     });
   
     newCustomer.save()
-    .then(() => res.json('Customer added!'))
+    .then(customer => res.json(customer))
     .catch(err => res.status(400).json('Error: ' + err));
   });
 
