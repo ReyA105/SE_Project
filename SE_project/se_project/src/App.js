@@ -10,8 +10,7 @@ import Homepage from "./components/Homepage.component"
 import Login from "./components/LogIn.component"
 import OrderHistory from "./components/OrderHistory.component"
 import ProductInfo from  "./components/ProductInfo.component"
-import Checkout from "./components/Checkout.component"
-import AddressUpdate from "./components/AddressUpdate.component"
+ import AddressUpdate from "./components/AddressUpdate.component"
 import axios from "axios";
 
 export default class App extends Component{
@@ -128,12 +127,6 @@ export default class App extends Component{
 
         <Route exact path={"/ProductInfo"} render ={props => (
           <ProductInfo {...props} 
-          loggedInStatus={this.state.loggedInStatus} 
-          userID = {this.state.userID}/>
-        )}/>
-
-        <Route exact path={"/Checkout"} render ={props => (
-          <Checkout {...props} 
           loggedInStatus={this.state.loggedInStatus} 
           userID = {this.state.userID}/>
         )}/>

@@ -22,7 +22,7 @@ export default class Cart extends Component{
             products : []
         }
     this.CartList = this.CartList.bind(this);
-        
+    this.onClickCheckOut = this.onClickCheckOut.bind(this);
       
     }
 
@@ -40,14 +40,37 @@ export default class Cart extends Component{
         console.log(this.state.temps)
         // eslint-disable-next-line
         let maplist = this.state.products.map(currentProduct => {
-            console.log(currentProduct._id)
-            console.log(this.state.temps)
              if(this.state.temps.includes(currentProduct._id))
              {
                 return <Product product={currentProduct} />
              };
         })
         return(maplist)
+    }
+    onClickCheckOut(e){
+        e.preventdeafult();
+        let pricetotal = 0;
+        let currentOrder = this.state.temps;
+        
+        // eslint-disable-next-line
+        this.state.products.map(currentProduct => {
+            if(this.state.temps.includes(currentProduct._id))
+            {
+                pricetotal = currentProduct.price + pricetotal
+            };
+       })
+       console.log(currentOrder)
+       console.log(pricetotal)
+    //    let query = 'http://localhost:5000/Customer/'+this.props.userID+"/order/add"
+    //    axios.post(query,{
+    //        "pricetotal": pricetotal,
+    //        "currentOrder" : currentOrder
+    //    }).then(res =>
+    //     {query = 'http://localhost:5000/Customer/'+this.props.userID+"/cart/clear" ;
+    //     axios.get(query);}
+    //    )
+
+    //    this.props.history.push("/");
     }
     render() {
         return (
@@ -70,6 +93,12 @@ export default class Cart extends Component{
                 {this.CartList()}
               </tbody>
             </table>
+            <form onSubmit ={this.onClickCheckOut}>
+            <div className="form-group">
+                  <input type="submit" value="Checkout cart" className="btn btn-primary" />
+            </div>
+            </form>  
+          
         </div>
         )
     }

@@ -56,8 +56,6 @@ router.route('/add').post((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
   });
 
-
-  //not done 
   router.route('/:_id/order/add/').post((req, res) => {
       let tempprice = req.body.pricetotal;
       let tempcurrentOrder = req.body.currentOrder;
@@ -69,9 +67,6 @@ router.route('/add').post((req, res) => {
         {$push : { "orderHistory" : temporderHistory}}).then(res.json("Order Added to History!"))
   
   });
-  //
-
-
 
 
   router.route('/:_id/address/').get((req, res) => {
