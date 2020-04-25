@@ -27,7 +27,7 @@ export default class Cart extends Component{
     }
 
     componentDidMount(){
-        let query = "http://localhost:5000/Customer/5ea275df29099a9e304ed399/Cart"
+        let query = "http://localhost:5000/Customer/"+this.props.userID+"/Cart"
         axios.get(query).then(res=>{
             this.setState({ temps: Object.values(res.data)})
         })
@@ -35,9 +35,16 @@ export default class Cart extends Component{
         query = "http://localhost:5000/Product/";
         axios.get(query).then(res=> this.setState({products:Object.values(res.data)}))
     }
+    
     CartList(){
+        console.log(this.state.temps)
         let maplist = this.state.products.map(currentProduct => {
-            return <Product product={currentProduct} />;
+            console.log(currentProduct._id)
+            console.log(this.state.temps)
+             if(this.state.temps.includes(currentProduct._id))
+             {
+                return <Product product={currentProduct} />
+             };
         })
         
         return(maplist)
@@ -47,6 +54,7 @@ export default class Cart extends Component{
         <div> 
            
            <h3>Cart</h3>
+          
             <table className="table">
               <thead className="thead-light">
                 <tr>

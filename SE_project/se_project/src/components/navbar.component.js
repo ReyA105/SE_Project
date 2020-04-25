@@ -20,6 +20,10 @@ export default class Navbar extends Component {
           <li className="navbar-item">
           <Link to="/Cart" className="nav-link">Cart</Link>
           </li>
+          <li className="navbar-item">
+          <Link to="/Checkout" className="nav-link">Checkout</Link>
+          </li>
+
         </ul>
         <ul className = "nav navbar-nav navbar-right">
           <li className="navbar-item">

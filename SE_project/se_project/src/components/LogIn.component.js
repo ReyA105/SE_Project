@@ -20,7 +20,7 @@ export default class Login extends Component{
         this.onChangeLastNametwo = this.onChangeLastNametwo.bind(this);
 
         this.onSubmit = this.onSubmit.bind(this);
-        this.onSubmitCreateUser = this.onSubmit.bind(this);
+        this.onSubmitCreateUser = this.onSubmitCreateUser.bind(this);
 
         this.handleSuccessfulAuth = this.handleSuccessfulAuth.bind(this);
 
@@ -65,24 +65,30 @@ export default class Login extends Component{
     }
 
     onSubmitCreateUser(e){
+      
       e.preventDefault();
       
       const user = {
           FirstName : this.state.createFirstName,
           LastName : this.state.createLastName,
       }
-      axios.post('http://localhost:5000/Customer/add',user).then(res=>console.log(res.body))
+     
+      axios.post('http://localhost:5000/Customer/add',user)
+      .then(res=>console.log(res.data))
+      .then( 
+        axios.get('http://localhost:5000/Customer/')
+        .then(res=> { 
+          for(let i=0;i<res.data.length  ; i++){
+            
+            if(res.data[i].FirstName === this.state.FirstName && res.data[i].LastName === this.state.LastName){
+              console.log(res.data[i]);
+              this.handleSuccessfulAuth(res.data[i])
+            }
+          }
+        }) )
+      console.log("here")
 
-      axios.get('http://localhost:5000/Customer/')
-            .then(res=> { 
-              for(let i=0;i<res.data.length  ; i++){
-                
-                if(res.data[i].FirstName === this.state.FirstName && res.data[i].LastName === this.state.LastName){
-                  console.log(res.data[i]);
-                  this.handleSuccessfulAuth(res.data[i])
-                }
-              }
-            }) 
+     
 
   }
 
@@ -115,7 +121,7 @@ export default class Login extends Component{
 
         <div>
           <h3>Account Creation Form</h3>
-            <form onSubmit={this.onSubmitCreateUser}> 
+            <form onSubmit={this.onSubmitCreateUser} > 
 
                 <div className = "form-group">
                     <label>First Name
@@ -129,9 +135,10 @@ export default class Login extends Component{
                     </label>
                 </div>
 
+                
                 <div className="form-group">
-                    <input type="submit" value="Create Account" className="btn" />
-                </div>
+                  <input type="submit" value="Login" className="btn btn-primary" />
+              </div>
             </form>
           </div>
 
