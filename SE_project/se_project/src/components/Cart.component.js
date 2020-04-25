@@ -35,9 +35,10 @@ export default class Cart extends Component{
         query = "http://localhost:5000/Product/";
         axios.get(query).then(res=> this.setState({products:Object.values(res.data)}))
     }
-    
+
     CartList(){
         console.log(this.state.temps)
+        // eslint-disable-next-line
         let maplist = this.state.products.map(currentProduct => {
             console.log(currentProduct._id)
             console.log(this.state.temps)
@@ -46,7 +47,6 @@ export default class Cart extends Component{
                 return <Product product={currentProduct} />
              };
         })
-        
         return(maplist)
     }
     render() {
@@ -54,7 +54,6 @@ export default class Cart extends Component{
         <div> 
            
            <h3>Cart</h3>
-          
             <table className="table">
               <thead className="thead-light">
                 <tr>

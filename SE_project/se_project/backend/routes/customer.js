@@ -58,24 +58,16 @@ router.route('/add').post((req, res) => {
 
 
   //not done 
-  router.route('/:_id/order/add/').get((req, res) => {
-    temphistory = [];
-    tempprice = 0
-    Customer.findById(req.params._id).then(customer => {
-        
-        for(var i =0; i < (customer.Cart).length; i++)
-        {
-          currProductID = (customer.Cart)[0];
-          Product.findById({"_id": currProductID}).then(product =>
-              temphistory.push((customer.Cart)[0]),
-              tempprice = tempprice + product.pricetotal 
-          )
+  router.route('/:_id/order/add/').post((req, res) => {
+      let tempprice = req.body.pricetotal;
+      let tempcurrentOrder = req.body.currentOrder;
+      let temporderHistory = {
+            "pricetotal":tempprice,
+            "currentOrders": tempcurrentOrder
         }
-    })
-
-    Customer.updateOne({_id:req.params._id},{$push : {"orderHistory":{"pricetotal": tempprice,"currentOrders":temphistory}}})
-    .then(res.json("Added OrderHistory to Customer Account"))
-    .catch(err => res.status(400).json('Error: ' + err));
+      Customer.updateOne({_id:req.params._id},
+        {$push : { "orderHistory" : temporderHistory}}).then(res.json("Order Added to History!"))
+  
   });
   //
 
@@ -119,9 +111,17 @@ router.route('/add').post((req, res) => {
           {$push : { "Cart" : req.body.Cart}})
           .then(res.json("Added Product In Cart"))
           .catch(err => res.status(400).json('Error: ' + err));
-     
+
   });
 
+  router.route('/:_id/cart/clear').post((req, res) => {
+    Customer.updateOne({_id:req.params._id},
+          {$set : { "Cart" : []}})
+          .then(res.json("Cart Cleared"))
+          .catch(err => res.status(400).json('Error: ' + err));
+     
+  });
+  
   router.route('/:_id/cart/delete').post((req, res) => {
     Customer.updateOne({_id:req.params._id},
       {$pull : { "Cart" : req.body.Cart}})
